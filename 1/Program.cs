@@ -31,34 +31,34 @@ void PrintArray(int [,] array)
     }
     System.Console.WriteLine();
 }
-int SortDescending ( int [,] array)
+int [,]SortDescending ( int [,] array)
 {
-    int max = array[0,0];
+    for (int rows = 0; rows< array.GetLength(0); rows++)
+    {
+        for (int i = 0; i < array.GetLength(1); i++)
+        {
+            for (int j = array.GetLength(1) - 1; j > i; j--)
+            {
+                if (array[rows, j] > array[rows, j-1])
+                {
+                    int temp = array[rows, j];
+                    array[rows, j] = array[rows, j-1];
+                    array[rows, j-1] = temp;
+                }
+            }
+        }   
+    }
+    
+    return array;
+}
 
-    for (int j = 1; j < array.GetLength(1); j++)
-    {
-        if (array[0,1] > array[0,0])
-        {
-            int temp = array[0,1];
-            array[0,1] = array[0,0];
-            array[0,0] = temp;
-        }
-    }
-    return max;
-}
-void PrintResult(int [,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            System.Console.WriteLine(array[i,j] + "");
-        }
-    }
-}
-int mess = InputInt("исходный массив");
-int [,] arr = CreateArray();
+int rows = 3;
+int col = 4;
+int [,] arr = CreateArray(rows, col);
+System.Console.WriteLine("исходный массив");
+//int mess = InputInt("исходный массив");
 PrintArray(arr);
-System.Console.WriteLine();
-int result = SortDescending(arr);
-PrintResult(arr);
+//int newMassiv = InputInt("измененный массив: ");
+System.Console.WriteLine("измененный массив:");
+int [,]result = SortDescending(arr);
+PrintArray(result);
